@@ -22,12 +22,12 @@ namespace ProgettoIDS.Controllers
         }
 
         [HttpPost("CreateOrder")]
-        public async Task<IActionResult> CreateOrder()
+        public async Task<IActionResult> CreateOrder(int idUtente)
         {
             try
             {
                 await this.context.Database.BeginTransactionAsync();
-                var ordine = new Ordine { Created_At = DateTime.Now, OrdineProdotto = new List<OrdineProdotto>() };
+                var ordine = new Ordine { IdUtente = idUtente, Created_At = DateTime.Now, OrdineProdotto = new List<OrdineProdotto>() };
                 var nuovoOrdine = await context.Ordini.AddAsync(ordine);
                 await this.context.SaveChangesAsync();
                 await this.context.Database.CommitTransactionAsync();

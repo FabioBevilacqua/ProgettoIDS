@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProgettoIDS.Data;
 
@@ -10,9 +11,10 @@ using ProgettoIDS.Data;
 namespace ProgettoIDS.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220517113920_CreazioneUtenti")]
+    partial class CreazioneUtenti
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
@@ -29,15 +31,10 @@ namespace ProgettoIDS.Migrations
                     b.Property<DateTime?>("Deleted_At")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("IdUtente")
-                        .HasColumnType("INTEGER");
-
                     b.Property<double>("Totale")
                         .HasColumnType("REAL");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdUtente");
 
                     b.ToTable("Ordini");
                 });
@@ -108,17 +105,6 @@ namespace ProgettoIDS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Utenti");
-                });
-
-            modelBuilder.Entity("Models.Ordine", b =>
-                {
-                    b.HasOne("Models.Utente", "Utente")
-                        .WithMany()
-                        .HasForeignKey("IdUtente")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Utente");
                 });
 
             modelBuilder.Entity("Models.OrdineProdotto", b =>
